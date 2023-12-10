@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'last_name',
         'email',
+        'username',
         'password',
         'role_id',
     ];
@@ -52,11 +53,11 @@ class User extends Authenticatable
 
     public function isSeller()
     {
-        return $this->role->name === 'seller';
+        return $this->role && $this->role->name === 'seller';
     }
 
     public function isCustomer()
     {
-        return $this->role->name === 'customer';
+        return $this->role && $this->role->name === 'customer';
     }
 }
