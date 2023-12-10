@@ -32,11 +32,11 @@ Route::middleware(['jwt.auth'])->group(function () {
 });
 
 
-Route::get('/products', 'ProductController@index');
-Route::get('/products/{id}', 'ProductController@show');
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
 
 Route::middleware(['jwt.auth'])->group(function () {
-    Route::get('/cart', 'CartController@index');
-    Route::post('/cart/add', 'CartController@addProduct');
-    Route::delete('/cart/remove/{productId}', 'CartController@removeProduct');
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/add', [CartController::class, 'addProduct']);
+    Route::delete('/cart/remove/{productId}', [CartController::class, 'removeProduct']);
 });
