@@ -38,12 +38,10 @@ class ProductController extends Controller
         $user = auth()->user();
         $product = Product::find($id);
 
-        // Check if the user is a seller and is the owner of the product
         if (!$user || !$user->isSeller() || !$product || $product->seller_id !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        // Delete the product
         $product->delete();
 
         return response()->json(['message' => 'Product deleted successfully'], 200);
