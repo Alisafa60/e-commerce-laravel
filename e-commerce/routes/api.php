@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,4 +29,14 @@ Route::middleware(['jwt.auth'])->group(function () {
 });
 Route::middleware(['jwt.auth'])->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+});
+
+
+Route::get('/products', 'ProductController@index');
+Route::get('/products/{id}', 'ProductController@show');
+
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::get('/cart', 'CartController@index');
+    Route::post('/cart/add', 'CartController@addProduct');
+    Route::delete('/cart/remove/{productId}', 'CartController@removeProduct');
 });
