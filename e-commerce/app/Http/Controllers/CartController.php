@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\CartItem;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +38,7 @@ class CartController extends Controller
         }
 
         // Add the product to the user's cart
-        $cartItem = CartItem::create([
+        $cartItem = Cart::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
             'quantity' => $request->input('quantity'),
@@ -53,7 +53,7 @@ class CartController extends Controller
         $user = Auth::user();
 
         // Find and delete the cart item for the given product and user
-        $cartItem = CartItem::where('user_id', $user->id)
+        $cartItem = Cart::where('user_id', $user->id)
             ->where('product_id', $productId)
             ->first();
 
