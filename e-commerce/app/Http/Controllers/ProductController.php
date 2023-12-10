@@ -46,4 +46,16 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Product deleted successfully'], 200);
     }
+
+    public function index()
+    {
+        $products = Product::all();
+        return response()->json(['products' => $products]);
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+        return response()->json(['products' => $products]);
+    }
 }
